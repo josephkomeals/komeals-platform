@@ -41,16 +41,17 @@ Add everyone else under **Settings → Users**.
 
 ## One-time Cloudflare setup
 
-1. Create the two databases (or in the dashboard: Storage & Databases → D1):
-   ```sh
-   npx wrangler d1 create komeals-platform-live
-   npx wrangler d1 create komeals-platform-test
-   ```
-   Put each `database_id` into `wrangler.jsonc` (live at the top, test under `env.test`).
-2. Apply the migrations: `npm run db:migrate:test` and `npm run db:migrate:live`.
-3. Connect the repo: Workers & Pages → Create → Import a repository → `komeals-platform`.
-   Production branch `main` deploys with `npx wrangler deploy`. Branch previews against
-   the test database are set up in the same screen (to confirm when we connect it).
+Databases (done 8 Nov 2026): `komeals-platform-live` and `komeals-platform-test`, IDs in `wrangler.jsonc`.
+
+Two Workers, both built from this repo (Workers & Pages → Create → Import a repository):
+
+| Worker | Production branch | Deploy command | Non-production branches |
+| --- | --- | --- | --- |
+| `komeals-platform-test` | `main` | `npx wrangler d1 migrations apply DB --remote --env test && npx wrangler deploy --env test` | On, same command |
+| `komeals-platform` (live) | `main` | `npx wrangler d1 migrations apply DB --remote && npx wrangler deploy` | Off |
+
+So every push to any branch updates the test site (test database), and merging to `main`
+updates live. Build command: leave empty.
 
 ## Google sign-in setup (one time)
 
