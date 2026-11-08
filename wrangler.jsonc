@@ -1,0 +1,33 @@
+// KoMeals Platform – one Worker for all modules.
+// Top level = LIVE (deployed from main). "env.test" = TEST (previews / branches).
+// Replace the database_id values with the real ones from `wrangler d1 create`.
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "komeals-platform",
+  "main": "src/index.tsx",
+  "compatibility_date": "2026-10-20",
+  "observability": { "enabled": true },
+  "vars": { "APP_ENV": "live" },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "komeals-platform-live",
+      "database_id": "00000000-0000-0000-0000-000000000000",
+      "migrations_dir": "migrations"
+    }
+  ],
+  "env": {
+    "test": {
+      "name": "komeals-platform-test",
+      "vars": { "APP_ENV": "test" },
+      "d1_databases": [
+        {
+          "binding": "DB",
+          "database_name": "komeals-platform-test",
+          "database_id": "00000000-0000-0000-0000-000000000001",
+          "migrations_dir": "migrations"
+        }
+      ]
+    }
+  }
+}

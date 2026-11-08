@@ -8,13 +8,53 @@ Fresh start, Nov 2026.
 | Path | What it is |
 | --- | --- |
 | `CLAUDE.md` | Agreed decisions, data model and build order – read first |
-| `docs/team-pages-spec.md` | Spec for the first module: My day, Team overview, Responsibilities, Daily checks |
-| `design/team-pages/` | Mockups of those four pages (example data) |
+| `src/index.tsx` | The Worker: wires the shared pieces and modules together |
+| `src/shared/` | Login (name + PIN), users, audit log, Zoho-style layout |
+| `migrations/` | D1 schema changes, applied in order. Only ever add; never drop live data |
+| `docs/team-pages-spec.md` | Spec for the Team pages module |
+| `design/team-pages/` | Mockups of the Team pages (example data) |
 
 Clickable mockups: https://claude.ai/artifact/N8RmQJpQpZCVsGci7EyD8j
 
-## Next step
+Stack: one Cloudflare Worker using [Hono](https://hono.dev) (server-rendered pages, no
+front-end build), TypeScript, D1 for the database.
 
-Choose the stack (the earlier project used Next.js 14 + Prisma + PostgreSQL),
-then build the foundation (audit log, locked records, PIN login) and the
-Daily checks page on top of it.
+## Plan (Nov 2026)
+
+1. **Platform shell** – login, users, audit log, sidebar. *(this step)*
+2. Move the **Planner** worker in as `src/modules/planner/`.
+3. Move the **Sales dashboard** worker in as `src/modules/sales/`.
+4. Switch over: old worker URLs redirect here, then the old workers are retired.
+
+Then the Team pages and the MRP build order in `CLAUDE.md`.
+
+## Running it locally
+
+```sh
+npm install
+npm run db:migrate:local   # creates a local test database
+npm run dev                # http://localhost:8787
+```
+
+The first visit goes to **/setup**, where you create the first admin (name + PIN).
+Add everyone else under **Settings → Users**.
+
+## One-time Cloudflare setup
+
+1. Create the two databases (or in the dashboard: Storage & Databases → D1):
+   ```sh
+   npx wrangler d1 create komeals-platform-live
+   npx wrangler d1 create komeals-platform-test
+   ```
+   Put each `database_id` into `wrangler.jsonc` (live at the top, test under `env.test`).
+2. Apply the migrations: `npm run db:migrate:test` and `npm run db:migrate:live`.
+3. Connect the repo: Workers & Pages → Create → Import a repository → `komeals-platform`.
+   Production branch `main` deploys with `npx wrangler deploy`. Branch previews against
+   the test database are set up in the same screen (to confirm when we connect it).
+
+## Login and security notes
+
+- PINs are hashed (PBKDF2), never stored as typed.
+- 5 wrong PINs lock that user for 15 minutes; an admin can reset the PIN to unlock.
+- Sessions last 12 hours. Deactivating a user logs them out everywhere.
+- The audit log is append-only: the database refuses edits and deletes on it.
