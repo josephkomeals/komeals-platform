@@ -6,13 +6,15 @@ import { getCookie, setCookie, deleteCookie } from 'hono/cookie';
 import type { AppEnv, User } from './types';
 
 const COOKIE = 'km_session';
-const SESSION_HOURS = 12;
+const DEVICE_COOKIE = 'km_device';
+const SESSION_HOURS = { google: 12, pin: 8 } as const;
+export type LoginMethod = keyof typeof SESSION_HOURS;
 const MAX_FAILED = 5;
 const LOCK_MINUTES = 15;
 const PBKDF2_ITERATIONS = 100_000; // Workers' maximum
 
 const enc = new TextEncoder();
-const toB64 = (buf: ArrayBuffer | Uint8Array) =>
+export const toB64 = (buf: ArrayBuffer | Uint8Array) =>
   btoa(String.fromCharCode(...new Uint8Array(buf)));
 const fromB64 = (s: string) => Uint8Array.from(atob(s), (c) => c.charCodeAt(0));
 
@@ -36,7 +38,7 @@ function sameString(a: string, b: string) {
   return diff === 0;
 }
 
-async function sha256(s: string) {
+export async function sha256(s: string) {
   return toB64(await crypto.subtle.digest('SHA-256', enc.encode(s)));
 }
 
@@ -57,7 +59,7 @@ export async function checkLogin(db: D1Database, name: string, pin: string): Pro
     .prepare('SELECT * FROM users WHERE name = ? AND active = 1')
     .bind(name.trim())
     .first<UserRow>();
-  if (!row) return { ok: false, reason: 'wrong' };
+  if (!row || !row.pin_hash) return { ok: false, reason: 'wrong' };
 
   const now = Date.now();
   if (row.locked_until && Date.parse(row.locked_until) > now) {
@@ -80,26 +82,56 @@ export async function checkLogin(db: D1Database, name: string, pin: string): Pro
   return { ok: true, user: { id: row.id, name: row.name, role: row.role, active: row.active } };
 }
 
-export async function startSession(c: Context<AppEnv>, user: User) {
-  const token = toB64(crypto.getRandomValues(new Uint8Array(32)));
-  const expires = new Date(Date.now() + SESSION_HOURS * 3600_000);
-  await c.env.DB.prepare('INSERT INTO sessions (token_hash, user_id, expires_at) VALUES (?, ?, ?)')
-    .bind(await sha256(token), user.id, expires.toISOString())
+const randomToken = () => toB64(crypto.getRandomValues(new Uint8Array(32)));
+const isHttps = (c: Context) => new URL(c.req.url).protocol === 'https:';
+
+export async function startSession(c: Context<AppEnv>, user: User, method: LoginMethod) {
+  const token = randomToken();
+  const expires = new Date(Date.now() + SESSION_HOURS[method] * 3600_000);
+  await c.env.DB.prepare('INSERT INTO sessions (token_hash, user_id, expires_at, method) VALUES (?, ?, ?, ?)')
+    .bind(await sha256(token), user.id, expires.toISOString(), method)
     .run();
   setCookie(c, COOKIE, token, {
     httpOnly: true,
-    secure: new URL(c.req.url).protocol === 'https:',
+    secure: isHttps(c),
     sameSite: 'Lax',
     path: '/',
     expires,
   });
-  await audit(c.env.DB, user.id, 'user', user.id, 'login');
+  await audit(c.env.DB, user.id, 'user', user.id, 'login', { method });
 }
 
 export async function endSession(c: Context<AppEnv>) {
   const token = getCookie(c, COOKIE);
   if (token) await c.env.DB.prepare('DELETE FROM sessions WHERE token_hash = ?').bind(await sha256(token)).run();
   deleteCookie(c, COOKIE, { path: '/' });
+}
+
+// ---- Kitchen tablets: only devices an admin registered get the name + PIN screen.
+
+export type Device = { id: number; name: string };
+
+export async function getDevice(c: Context<AppEnv>): Promise<Device | null> {
+  const token = getCookie(c, DEVICE_COOKIE);
+  if (!token) return null;
+  return c.env.DB.prepare('SELECT id, name FROM devices WHERE token_hash = ? AND revoked_at IS NULL')
+    .bind(await sha256(token))
+    .first<Device>();
+}
+
+export async function registerDevice(c: Context<AppEnv>, name: string) {
+  const token = randomToken();
+  const res = await c.env.DB.prepare('INSERT INTO devices (token_hash, name, created_by) VALUES (?, ?, ?)')
+    .bind(await sha256(token), name, c.get('user')!.id)
+    .run();
+  setCookie(c, DEVICE_COOKIE, token, {
+    httpOnly: true,
+    secure: isHttps(c),
+    sameSite: 'Lax',
+    path: '/',
+    maxAge: 400 * 24 * 3600, // browsers cap cookies at 400 days
+  });
+  await audit(c.env.DB, c.get('user')!.id, 'device', Number(res.meta.last_row_id), 'register', { name });
 }
 
 /** Loads the logged-in user (if any) into c.var.user. */

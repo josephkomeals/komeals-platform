@@ -7,7 +7,7 @@
   "main": "src/index.tsx",
   "compatibility_date": "2026-10-20",
   "observability": { "enabled": true },
-  "vars": { "APP_ENV": "live" },
+  "vars": { "APP_ENV": "live", "ALLOWED_EMAIL_DOMAIN": "komeals.com" },
   "d1_databases": [
     {
       "binding": "DB",
@@ -19,7 +19,7 @@
   "env": {
     "test": {
       "name": "komeals-platform-test",
-      "vars": { "APP_ENV": "test" },
+      "vars": { "APP_ENV": "test", "ALLOWED_EMAIL_DOMAIN": "komeals.com" },
       "d1_databases": [
         {
           "binding": "DB",

@@ -16,7 +16,8 @@ Prisma, PostgreSQL, Tailwind). Parts may be reused, but this repo is the new hom
   closed / locked properly; "click Edit to unlock".
 - Planning playground stays sandboxed; only when locked does it become real
   make orders, with an audit trail.
-- Operator screens stay minimal. Login by name + 4-digit PIN.
+- Operator screens stay minimal. Login: Sign in with Google (@komeals.com) for office
+  staff; tap name + 4-digit PIN only on registered kitchen tablets (decided 8 Nov 2026).
 
 ## Hosting and structure
 

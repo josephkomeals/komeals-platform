@@ -4,6 +4,7 @@
 import { Hono } from 'hono';
 import { loadUser, requireLogin, sameOrigin } from './shared/auth';
 import { Shell } from './shared/layout';
+import { googleRoutes } from './shared/google';
 import { loginRoutes } from './shared/login';
 import { settingsRoutes } from './shared/settings';
 import type { AppEnv } from './shared/types';
@@ -23,6 +24,7 @@ app.use('*', loadUser);
 app.get('/health', (c) => c.json({ ok: true, env: c.env.APP_ENV }));
 
 app.route('/', loginRoutes);
+app.route('/', googleRoutes);
 
 app.use('*', requireLogin);
 

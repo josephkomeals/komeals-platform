@@ -36,7 +36,7 @@ npm run db:migrate:local   # creates a local test database
 npm run dev                # http://localhost:8787
 ```
 
-The first visit goes to **/setup**, where you create the first admin (name + PIN).
+The first visit goes to **/setup**, where you create the first admin (name, Google email, PIN).
 Add everyone else under **Settings → Users**.
 
 ## One-time Cloudflare setup
@@ -52,9 +52,28 @@ Add everyone else under **Settings → Users**.
    Production branch `main` deploys with `npx wrangler deploy`. Branch previews against
    the test database are set up in the same screen (to confirm when we connect it).
 
+## Google sign-in setup (one time)
+
+1. Google Cloud console → APIs & Services → Credentials → Create credentials →
+   OAuth client ID → Web application. Under "Authorized redirect URIs" add
+   `https://<live address>/auth/google/callback` and the same for the test address.
+   (OAuth consent screen: User type **Internal**, so only @komeals.com accounts can use it.)
+2. Store the two values as Worker secrets, for live and for test:
+   ```sh
+   npx wrangler secret put GOOGLE_CLIENT_ID
+   npx wrangler secret put GOOGLE_CLIENT_SECRET
+   npx wrangler secret put GOOGLE_CLIENT_ID --env test
+   npx wrangler secret put GOOGLE_CLIENT_SECRET --env test
+   ```
+Until both secrets are set, the name + PIN screen works on any device, so the first admin can log in.
+
 ## Login and security notes
 
+- **Office / anywhere:** Sign in with Google. Only verified @komeals.com accounts whose email is
+  linked to an active user get in.
+- **Kitchen tablet:** an admin registers the device once (Settings → Users → Kitchen tablets).
+  Only registered devices show the tap-your-name + PIN screen; removing a tablet turns it off.
 - PINs are hashed (PBKDF2), never stored as typed.
 - 5 wrong PINs lock that user for 15 minutes; an admin can reset the PIN to unlock.
-- Sessions last 12 hours. Deactivating a user logs them out everywhere.
+- Sessions last 12 hours (Google) or 8 hours (PIN). Deactivating a user logs them out everywhere.
 - The audit log is append-only: the database refuses edits and deletes on it.
