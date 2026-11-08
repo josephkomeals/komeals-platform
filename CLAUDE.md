@@ -18,6 +18,20 @@ Prisma, PostgreSQL, Tailwind). Parts may be reused, but this repo is the new hom
   make orders, with an audit trail.
 - Operator screens stay minimal. Login by name + 4-digit PIN.
 
+## Hosting and structure
+
+- Hosted on Cloudflare: Workers (app), D1 (database), R2 (files). Paid Workers
+  plan (~$5/month) once the team relies on it.
+- GitHub `main` = live. Work on branches; each branch gets a Cloudflare preview
+  with the **test** database. Merge to `main` to go live.
+- Two databases: test and live. Never reset or drop the live database.
+- All schema changes are migrations that keep existing rows.
+- One app, separate modules, built one at a time:
+  `shared/` (login + PIN, users, audit log, sidebar, theme), `team/`,
+  `planner/` (move the existing KoMeals Planner in), `sales/` (Leo's sales
+  dashboard), `production/` etc. Modules don't depend on each other for now;
+  links between them come later through the shared database.
+
 ## Data model (core)
 
 Products (with variants: own SKU, price, portion size; one shared recipe),
