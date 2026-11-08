@@ -1,4 +1,4 @@
-# Team pages – spec (first module of the MRP)
+# Team pages – spec (first module of KoMeals Platform)
 
 Status: agreed direction, Nov 2026. Designs: `design/team-pages/` (mockups only, example data).
 Canvas with clickable versions: https://claude.ai/artifact/N8RmQJpQpZCVsGci7EyD8j

@@ -1,6 +1,6 @@
-# KoMeals MRP – project notes for Claude
+# KoMeals Platform – project notes for Claude
 
-Fresh start of Joseph Matyas's MRP for the KoMeals kitchen (began 16 Oct 2026).
+KoMeals Platform: the fresh-start MRP plus team, planner and sales modules for the KoMeals kitchen (began 16 Oct 2026).
 The earlier attempt is `josephkomeals/mrp-nutrition-platform` (Next.js 14,
 Prisma, PostgreSQL, Tailwind). Parts may be reused, but this repo is the new home.
 

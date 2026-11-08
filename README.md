@@ -1,4 +1,4 @@
-# KoMeals MRP
+# KoMeals Platform
 
 Manufacturing, purchasing, sales and team management for the KoMeals kitchen.
 Fresh start, Nov 2026.
