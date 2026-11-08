@@ -41,7 +41,7 @@ Add everyone else under **Settings → Users**.
 
 ## One-time Cloudflare setup
 
-Databases (done 8 Nov 2026): `komeals-platform-live` and `komeals-platform-test`, IDs in `wrangler.jsonc`.
+Databases (created 8 Nov 2026): `komeals-platform-live` and `komeals-platform-test`, IDs in `wrangler.jsonc`.
 
 Two Workers, both built from this repo (Workers & Pages → Create → Import a repository):
 
