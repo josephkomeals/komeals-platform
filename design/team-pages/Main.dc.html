@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>My day</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;display=swap">
+<style>
+body{margin:0;background:#f6f7fb;font-family:Inter,system-ui,sans-serif;color:#1c2230}
+a{color:#2f6fdb}a:hover{color:#1f55b3}
+.nav{display:block;padding:9px 14px;border-radius:6px;color:#c9cfdc;text-decoration:none;font-size:14px}
+.nav:hover{background:#2b3447;color:#ffffff}
+.nav.on,.nav.on:hover{background:#2f6fdb;color:#ffffff}
+.pill{font-size:12px;padding:3px 9px;border-radius:999px;white-space:nowrap;display:inline-block}
+.card{background:#ffffff;border:1px solid #e3e6ee;border-radius:10px}
+</style>
+</helmet>
+<div style="display: flex; flex-wrap: wrap; min-height: 100vh">
+<nav aria-label="Main" style="flex: 0 0 220px; background: #1d2433; padding: 16px 12px; box-sizing: border-box; display: flex; flex-direction: column; gap: 2px">
+<div style="color: #ffffff; font-weight: 600; font-size: 16px; padding: 6px 14px 18px">KoMeals <span style="color: #8fa0bf; font-weight: 400">MRP</span></div>
+<a class="nav" href="#">Home</a>
+<a class="nav" href="#">Inventory</a>
+<a class="nav" href="#">Production</a>
+<a class="nav" href="#">Sales</a>
+<a class="nav" href="#">Purchases</a>
+<a class="nav" href="#">Reports</a>
+<div style="color: #8fa0bf; font-size: 12px; padding: 18px 14px 6px">Team</div>
+<a class="nav on" href="Main.dc.html">My day</a>
+<a class="nav" href="Team.dc.html">Team overview</a>
+<a class="nav" href="Responsibilities.dc.html">Responsibilities</a>
+<a class="nav" href="Checks.dc.html">Daily checks</a>
+</nav>
+<main style="flex: 999 1 560px; min-width: 0; display: flex; flex-direction: column">
+<div style="background: #ffffff; border-bottom: 1px solid #e3e6ee; padding: 12px 28px; display: flex; align-items: center; gap: 12px; flex-wrap: wrap">
+<input type="search" aria-label="Search tasks, orders and items" placeholder="Search tasks, orders and items" style="flex: 1 1 260px; max-width: 420px; height: 36px; border: 1px solid #d5d9e3; border-radius: 6px; padding: 0 12px; font: inherit; font-size: 14px">
+<div style="flex: 1 1 0"></div>
+<button style="height: 36px; padding: 0 14px; border: 0; border-radius: 6px; background: #2f6fdb; color: #ffffff; font: inherit; font-size: 14px; font-weight: 500">+ New task</button>
+<div aria-label="Joseph Matyas" style="width: 34px; height: 34px; border-radius: 50%; background: #e4ecfb; color: #1f55b3; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 600">JM</div>
+</div>
+<div style="padding: 24px 28px 40px; display: flex; flex-direction: column; gap: 20px">
+<div style="display: flex; align-items: flex-end; gap: 16px; flex-wrap: wrap">
+<div style="flex: 1 1 300px">
+<h1 style="margin: 0; font-size: 24px; font-weight: 600">My day</h1>
+<p style="margin: 4px 0 0; color: #5b6475; font-size: 14px">Monday 9 November · Joseph Matyas · 0 of 5 done</p>
+</div>
+<div role="group" aria-label="Show" style="display: flex; gap: 6px; flex-wrap: wrap">
+<button style="height: 32px; padding: 0 12px; border-radius: 6px; border: 1px solid #2f6fdb; background: #e4ecfb; color: #1f55b3; font: inherit; font-size: 13px">Today</button>
+<button style="height: 32px; padding: 0 12px; border-radius: 6px; border: 1px solid #d5d9e3; background: #ffffff; color: #1c2230; font: inherit; font-size: 13px">This week</button>
+<button style="height: 32px; padding: 0 12px; border-radius: 6px; border: 1px solid #d5d9e3; background: #ffffff; color: #1c2230; font: inherit; font-size: 13px">Overdue</button>
+</div>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px">
+<div class="card" style="padding: 14px 16px"><div style="font-size: 13px; color: #5b6475">Due today</div><div style="font-size: 26px; font-weight: 600; margin-top: 4px">5</div></div>
+<div class="card" style="padding: 14px 16px"><div style="font-size: 13px; color: #5b6475">Done</div><div style="font-size: 26px; font-weight: 600; margin-top: 4px; color: #1f7a4a">0</div></div>
+<div class="card" style="padding: 14px 16px"><div style="font-size: 13px; color: #5b6475">Overdue</div><div style="font-size: 26px; font-weight: 600; margin-top: 4px; color: #b42318">1</div></div>
+<div class="card" style="padding: 14px 16px"><div style="font-size: 13px; color: #5b6475">Snoozed emails</div><div style="font-size: 26px; font-weight: 600; margin-top: 4px">4</div></div>
+</div>
+<div style="display: flex; gap: 20px; flex-wrap: wrap; align-items: flex-start">
+<section class="card" aria-label="Today's plan" style="flex: 999 1 520px; min-width: 0; overflow: hidden">
+<div style="padding: 14px 18px; border-bottom: 1px solid #e3e6ee; display: flex; align-items: center; gap: 8px">
+<h2 style="margin: 0; font-size: 16px; font-weight: 600; flex: 1 1 0">Today's plan</h2>
+<span style="font-size: 13px; color: #5b6475">10:00–18:00</span>
+</div>
+<div style="display: flex; gap: 14px; padding: 14px 18px; background: #f3f4f7; border-bottom: 1px solid #e3e6ee">
+<div style="flex: 0 0 92px; font-size: 13px; color: #5b6475; padding-top: 2px">10:00–12:00</div>
+<div style="flex: 1 1 0; min-width: 0">
+<div style="font-size: 14px; font-weight: 500">Protected time: Faigy training, issues, new emails</div>
+<div style="font-size: 13px; color: #5b6475; margin-top: 3px">Includes 5 min inbox triage · <a href="#">3 new tasks from email</a></div>
+</div>
+</div>
+<div style="display: flex; gap: 14px; padding: 14px 18px; border-bottom: 1px solid #eef0f5; align-items: center; flex-wrap: wrap">
+<div style="flex: 0 0 92px; font-size: 13px; color: #b42318; font-weight: 500">Overdue</div>
+<label style="display: flex; align-items: center; gap: 10px; flex: 1 1 260px; min-width: 0; font-size: 14px"><input type="checkbox" style="width: 18px; height: 18px">Reply to Leo – monthly stocktakes report</label>
+<span class="pill" style="background: #fde8e7; color: #b42318">High</span>
+<span class="pill" style="background: #eef0f5; color: #3d4556">Admin</span>
+</div>
+<div style="display: flex; gap: 14px; padding: 14px 18px; border-bottom: 1px solid #eef0f5; align-items: center; flex-wrap: wrap">
+<div style="flex: 0 0 92px; font-size: 13px; color: #5b6475">12:00–12:45</div>
+<label style="display: flex; align-items: center; gap: 10px; flex: 1 1 260px; min-width: 0; font-size: 14px"><input type="checkbox" style="width: 18px; height: 18px">Menorah – confirm new fruit order structure</label>
+<span class="pill" style="background: #fdf0dc; color: #8a4b00">Med</span>
+<span class="pill" style="background: #eef0f5; color: #3d4556">Orders/POs</span>
+</div>
+<div style="display: flex; gap: 14px; padding: 14px 18px; border-bottom: 1px solid #eef0f5; align-items: center; flex-wrap: wrap">
+<div style="flex: 0 0 92px; font-size: 13px; color: #5b6475">12:45–13:15</div>
+<label style="display: flex; align-items: center; gap: 10px; flex: 1 1 260px; min-width: 0; font-size: 14px"><input type="checkbox" style="width: 18px; height: 18px">Breakfast – find milk company</label>
+<span class="pill" style="background: #fdf0dc; color: #8a4b00">Med</span>
+<span class="pill" style="background: #eef0f5; color: #3d4556">Orders/POs</span>
+</div>
+<div style="display: flex; gap: 14px; padding: 14px 18px; border-bottom: 1px solid #eef0f5; align-items: center; flex-wrap: wrap">
+<div style="flex: 0 0 92px; font-size: 13px; color: #5b6475">13:15–14:15</div>
+<label style="display: flex; align-items: center; gap: 10px; flex: 1 1 260px; min-width: 0; font-size: 14px"><input type="checkbox" style="width: 18px; height: 18px">Pricing for wraps (needed by Fri)</label>
+<span class="pill" style="background: #fdf0dc; color: #8a4b00">Med</span>
+<span class="pill" style="background: #eef0f5; color: #3d4556">Admin</span>
+</div>
+<div style="display: flex; gap: 14px; padding: 14px 18px; align-items: center; flex-wrap: wrap">
+<div style="flex: 0 0 92px; font-size: 13px; color: #5b6475">17:00–17:30</div>
+<label style="display: flex; align-items: center; gap: 10px; flex: 1 1 260px; min-width: 0; font-size: 14px"><input type="checkbox" style="width: 18px; height: 18px">Go through MOs <span style="color: #5b6475; font-size: 13px">· with Micky · daily</span></label>
+<span class="pill" style="background: #fdf0dc; color: #8a4b00">Med</span>
+<span class="pill" style="background: #eef0f5; color: #3d4556">Production</span>
+</div>
+</section>
+<aside style="flex: 1 1 300px; min-width: 0; display: flex; flex-direction: column; gap: 16px">
+<section class="card" aria-label="Checks due today" style="padding: 16px 18px">
+<div style="display: flex; align-items: center; margin-bottom: 10px"><h2 style="margin: 0; font-size: 16px; font-weight: 600; flex: 1 1 0">Checks today</h2><span style="font-size: 13px; color: #5b6475">3 of 6</span></div>
+<div style="height: 6px; background: #eef0f5; border-radius: 3px; margin-bottom: 12px"><div style="width: 50%; height: 6px; background: #1f7a4a; border-radius: 3px"></div></div>
+<div style="display: flex; flex-direction: column; gap: 9px; font-size: 14px">
+<div style="display: flex; gap: 8px"><span style="flex: 1 1 0">Freezer and chiller temps – AM</span><span class="pill" style="background: #e3f4ea; color: #1f7a4a">Done 08:05</span></div>
+<div style="display: flex; gap: 8px"><span style="flex: 1 1 0">Opening H&amp;S checklist</span><span class="pill" style="background: #e3f4ea; color: #1f7a4a">Done 08:20</span></div>
+<div style="display: flex; gap: 8px"><span style="flex: 1 1 0">Finchley cold room</span><span class="pill" style="background: #fde8e7; color: #b42318">Out of range</span></div>
+<div style="display: flex; gap: 8px"><span style="flex: 1 1 0">Freezer and chiller temps – PM</span><span class="pill" style="background: #fdf0dc; color: #8a4b00">Due 15:00</span></div>
+<div style="display: flex; gap: 8px"><span style="flex: 1 1 0">Closing H&amp;S checklist</span><span class="pill" style="background: #fdf0dc; color: #8a4b00">Due 17:30</span></div>
+</div>
+<a href="Checks.dc.html" style="display: inline-block; margin-top: 14px; font-size: 14px; font-weight: 500">Open daily checks</a>
+</section>
+<section class="card" aria-label="To discuss" style="padding: 16px 18px">
+<h2 style="margin: 0 0 10px; font-size: 16px; font-weight: 600">To discuss</h2>
+<div style="display: flex; flex-direction: column; gap: 8px; font-size: 14px">
+<div style="display: flex"><span style="flex: 1 1 0">Faigy</span><span style="color: #5b6475">3 points</span></div>
+<div style="display: flex"><span style="flex: 1 1 0">Micky</span><span style="color: #5b6475">25 points</span></div>
+<div style="display: flex"><span style="flex: 1 1 0">Leo</span><span style="color: #5b6475">4 points</span></div>
+<div style="display: flex"><span style="flex: 1 1 0">Mirel</span><span style="color: #5b6475">2 points</span></div>
+</div>
+</section>
+<section class="card" aria-label="Waiting on others" style="padding: 16px 18px">
+<h2 style="margin: 0 0 10px; font-size: 16px; font-weight: 600">Waiting on others</h2>
+<div style="display: flex; flex-direction: column; gap: 8px; font-size: 14px">
+<div><div>Payroll payment to wrong account</div><div style="font-size: 13px; color: #5b6475">Apron support · 4 days</div></div>
+<div><div>Stock adjustment – Finchley cold room</div><div style="font-size: 13px; color: #5b6475">Micky · 4 days</div></div>
+</div>
+</section>
+</aside>
+</div>
+</div>
+</main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1360,"height":1020}}'>
+class Component extends DCLogic {
+renderVals() {
+return {};
+}
+}
+</script>
+</body>
+</html>

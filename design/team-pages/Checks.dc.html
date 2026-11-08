@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Daily checks</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;display=swap">
+<style>
+body{margin:0;background:#f6f7fb;font-family:Inter,system-ui,sans-serif;color:#1c2230}
+a{color:#2f6fdb}a:hover{color:#1f55b3}
+.nav{display:block;padding:9px 14px;border-radius:6px;color:#c9cfdc;text-decoration:none;font-size:14px}
+.nav:hover{background:#2b3447;color:#ffffff}
+.nav.on,.nav.on:hover{background:#2f6fdb;color:#ffffff}
+.pill{font-size:12px;padding:3px 9px;border-radius:999px;white-space:nowrap;display:inline-block}
+.card{background:#ffffff;border:1px solid #e3e6ee;border-radius:10px}
+th{text-align:left;font-weight:500;font-size:12px;color:#5b6475;padding:10px 14px;border-bottom:1px solid #e3e6ee;white-space:nowrap;background:#fafbfd}
+td{padding:11px 14px;border-bottom:1px solid #eef0f5;font-size:14px;vertical-align:middle}
+label{font-size:13px;color:#3d4556}
+</style>
+</helmet>
+<div style="display: flex; flex-wrap: wrap; min-height: 100vh">
+<nav aria-label="Main" style="flex: 0 0 220px; background: #1d2433; padding: 16px 12px; box-sizing: border-box; display: flex; flex-direction: column; gap: 2px">
+<div style="color: #ffffff; font-weight: 600; font-size: 16px; padding: 6px 14px 18px">KoMeals <span style="color: #8fa0bf; font-weight: 400">MRP</span></div>
+<a class="nav" href="#">Home</a>
+<a class="nav" href="#">Inventory</a>
+<a class="nav" href="#">Production</a>
+<a class="nav" href="#">Sales</a>
+<a class="nav" href="#">Purchases</a>
+<a class="nav" href="#">Reports</a>
+<div style="color: #8fa0bf; font-size: 12px; padding: 18px 14px 6px">Team</div>
+<a class="nav" href="Main.dc.html">My day</a>
+<a class="nav" href="Team.dc.html">Team overview</a>
+<a class="nav" href="Responsibilities.dc.html">Responsibilities</a>
+<a class="nav on" href="Checks.dc.html">Daily checks</a>
+</nav>
+<main style="flex: 999 1 560px; min-width: 0; display: flex; flex-direction: column">
+<div style="background: #ffffff; border-bottom: 1px solid #e3e6ee; padding: 12px 28px; display: flex; align-items: center; gap: 12px; flex-wrap: wrap">
+<input type="search" aria-label="Search tasks, orders and items" placeholder="Search tasks, orders and items" style="flex: 1 1 260px; max-width: 420px; height: 36px; border: 1px solid #d5d9e3; border-radius: 6px; padding: 0 12px; font: inherit; font-size: 14px">
+<div style="flex: 1 1 0"></div>
+<button style="height: 36px; padding: 0 14px; border: 1px solid #d5d9e3; border-radius: 6px; background: #ffffff; color: #1c2230; font: inherit; font-size: 14px">Export for EHO</button>
+<div aria-label="Joseph Matyas" style="width: 34px; height: 34px; border-radius: 50%; background: #e4ecfb; color: #1f55b3; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 600">JM</div>
+</div>
+<div style="padding: 24px 28px 40px; display: flex; flex-direction: column; gap: 20px">
+<div style="flex: 1 1 300px">
+<h1 style="margin: 0; font-size: 24px; font-weight: 600">Daily checks</h1>
+<p style="margin: 4px 0 0; color: #5b6475; font-size: 14px">Monday 9 November · readings lock once saved and keep a full audit log</p>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px">
+<div class="card" style="padding: 14px 16px"><div style="font-size: 13px; color: #5b6475">Checks done today</div><div style="font-size: 26px; font-weight: 600; margin-top: 4px">3 of 6</div></div>
+<div class="card" style="padding: 14px 16px"><div style="font-size: 13px; color: #5b6475">Out of range</div><div style="font-size: 26px; font-weight: 600; margin-top: 4px; color: #b42318">1</div></div>
+<div class="card" style="padding: 14px 16px"><div style="font-size: 13px; color: #5b6475">Open corrective actions</div><div style="font-size: 26px; font-weight: 600; margin-top: 4px; color: #8a4b00">1</div></div>
+<div class="card" style="padding: 14px 16px"><div style="font-size: 13px; color: #5b6475">Last 30 days on time</div><div style="font-size: 26px; font-weight: 600; margin-top: 4px; color: #1f7a4a">97%</div></div>
+</div>
+<div style="display: flex; gap: 20px; flex-wrap: wrap; align-items: flex-start">
+<div style="flex: 999 1 560px; min-width: 0; display: flex; flex-direction: column; gap: 20px">
+<section class="card" aria-label="Temperature log" style="overflow: hidden">
+<div style="padding: 14px 18px; border-bottom: 1px solid #e3e6ee; display: flex; align-items: center; gap: 8px"><h2 style="margin: 0; font-size: 16px; font-weight: 600; flex: 1 1 0">Temperature log</h2><span style="font-size: 13px; color: #5b6475">AM by 10:00 · PM by 15:00</span></div>
+<div style="overflow-x: auto">
+<table style="width: 100%; border-collapse: collapse; min-width: 680px">
+<thead><tr><th>Unit</th><th>Target</th><th>AM</th><th>PM</th><th>Status</th></tr></thead>
+<tbody>
+<sc-for list="{{temps}}" as="t" hint-placeholder-count="5">
+<tr>
+<td style="font-weight: 500">{{t.unit}}</td>
+<td style="color: #5b6475">{{t.target}}</td>
+<td><div>{{t.am}}</div><div style="font-size: 12px; color: #5b6475">{{t.amBy}}</div></td>
+<td><div>{{t.pm}}</div><div style="font-size: 12px; color: #5b6475">{{t.pmBy}}</div></td>
+<td><span class="pill" style="{{t.style}}">{{t.status}}</span></td>
+</tr>
+</sc-for>
+</tbody>
+</table>
+</div>
+<div style="margin: 14px 18px 16px; padding: 12px 14px; background: #fde8e7; border-radius: 8px; font-size: 14px; color: #7a1a12">
+<div style="font-weight: 600">Corrective action – Finchley cold room at -14°C (08:40)</div>
+<div style="margin-top: 4px">Stock moved to Freezer 1 by Micky at 08:55 · reported to Dephna · recheck due 10:00</div>
+</div>
+</section>
+<section class="card" aria-label="Health and safety checklist" style="overflow: hidden">
+<div style="padding: 14px 18px; border-bottom: 1px solid #e3e6ee"><h2 style="margin: 0; font-size: 16px; font-weight: 600">Health and safety checklist</h2></div>
+<div style="padding: 6px 18px 12px">
+<sc-for list="{{hs}}" as="h" hint-placeholder-count="6">
+<div style="display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid #eef0f5; flex-wrap: wrap">
+<label style="display: flex; align-items: center; gap: 10px; flex: 1 1 260px; font-size: 14px; color: #1c2230"><input type="checkbox" checked="{{h.done}}" style="width: 18px; height: 18px">{{h.item}}</label>
+<span style="font-size: 13px; color: #5b6475">{{h.freq}}</span>
+<span class="pill" style="{{h.style}}">{{h.state}}</span>
+</div>
+</sc-for>
+</div>
+</section>
+</div>
+<aside style="flex: 1 1 300px; min-width: 0; display: flex; flex-direction: column; gap: 20px">
+<section class="card" aria-label="Log a reading" style="padding: 16px 18px">
+<h2 style="margin: 0 0 12px; font-size: 16px; font-weight: 600">Log a reading</h2>
+<div style="display: flex; flex-direction: column; gap: 12px">
+<div style="display: flex; flex-direction: column; gap: 5px"><label for="unit">Unit</label><select id="unit" style="height: 36px; border: 1px solid #d5d9e3; border-radius: 6px; padding: 0 10px; font: inherit; font-size: 14px"><option>Freezer 1</option><option>Freezer 2</option><option>Walk-in chiller</option><option>Blast chiller</option><option>Finchley cold room</option></select></div>
+<div style="display: flex; flex-direction: column; gap: 5px"><label for="temp">Temperature (°C)</label><input id="temp" type="number" step="0.1" placeholder="-19.5" style="height: 36px; border: 1px solid #d5d9e3; border-radius: 6px; padding: 0 10px; font: inherit; font-size: 14px"></div>
+<div style="display: flex; flex-direction: column; gap: 5px"><label for="pin">Your PIN</label><input id="pin" type="password" inputmode="numeric" placeholder="4 digits" style="height: 36px; border: 1px solid #d5d9e3; border-radius: 6px; padding: 0 10px; font: inherit; font-size: 14px"></div>
+<div style="display: flex; flex-direction: column; gap: 5px"><label for="note">Note or action taken</label><textarea id="note" rows="2" placeholder="Only needed if out of range" style="border: 1px solid #d5d9e3; border-radius: 6px; padding: 8px 10px; font: inherit; font-size: 14px; resize: vertical"></textarea></div>
+<button style="height: 40px; border: 0; border-radius: 6px; background: #2f6fdb; color: #ffffff; font: inherit; font-size: 14px; font-weight: 500">Save reading</button>
+<p style="margin: 0; font-size: 12px; color: #5b6475">Out-of-range readings require a note and alert Joseph and Micky.</p>
+</div>
+</section>
+<section class="card" aria-label="Last 7 days" style="padding: 16px 18px">
+<h2 style="margin: 0 0 12px; font-size: 16px; font-weight: 600">Last 7 days</h2>
+<div style="display: grid; grid-template-columns: 96px repeat(7, minmax(0, 1fr)); gap: 6px; align-items: center; font-size: 12px">
+<span></span>
+<sc-for list="{{days}}" as="d" hint-placeholder-count="7"><span style="text-align: center; color: #5b6475">{{d}}</span></sc-for>
+<sc-for list="{{hist}}" as="h" hint-placeholder-count="20"><span style="{{h.style}}" aria-label="{{h.label}}">{{h.text}}</span></sc-for>
+</div>
+<div style="display: flex; gap: 14px; margin-top: 12px; font-size: 12px; color: #5b6475; flex-wrap: wrap">
+<span><span style="display: inline-block; width: 10px; height: 10px; border-radius: 2px; background: #1f7a4a"></span> In range</span>
+<span><span style="display: inline-block; width: 10px; height: 10px; border-radius: 2px; background: #c96f00"></span> Missed</span>
+<span><span style="display: inline-block; width: 10px; height: 10px; border-radius: 2px; background: #b42318"></span> Out of range</span>
+</div>
+</section>
+</aside>
+</div>
+</div>
+</main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1360,"height":1100}}'>
+class Component extends DCLogic {
+renderVals() {
+var ok = 'background: #e3f4ea; color: #1f7a4a', bad = 'background: #fde8e7; color: #b42318', due = 'background: #fdf0dc; color: #8a4b00', grey = 'background: #eef0f5; color: #5b6475';
+var temps = [
+['Freezer 1','-18°C or colder','-21.0°C','08:05 · MH','—','due 15:00','In range',ok],
+['Freezer 2','-18°C or colder','-19.5°C','08:06 · MH','—','due 15:00','In range',ok],
+['Walk-in chiller','0–5°C','3.2°C','08:07 · MH','—','due 15:00','In range',ok],
+['Blast chiller','Below 5°C in 90 min','2.1°C','08:09 · MH','—','due 15:00','In range',ok],
+['Finchley cold room','-18°C or colder','-14.0°C','08:40 · MH','—','recheck 10:00','Out of range',bad]
+].map(function (r) { return { unit: r[0], target: r[1], am: r[2], amBy: r[3], pm: r[4], pmBy: r[5], status: r[6], style: r[7] }; });
+var hs = [
+['Handwash stations stocked','Daily',true,'Done 08:20 · MH',ok],
+['Probe thermometers checked','Weekly',true,'Done 08:22 · MH',ok],
+['Pest control check','Daily',true,'Done 08:25 · MH',ok],
+['Fire exits and walkways clear','Daily',false,'Due 17:30',due],
+['First-aid kit stocked','Weekly',false,'Due Fri',grey],
+['Cleaning schedule signed off','Daily',false,'Due 17:30',due]
+].map(function (r) { return { item: r[0], freq: r[1], done: r[2], state: r[3], style: r[4] }; });
+var days = ['Tue','Wed','Thu','Fri','Sat','Sun','Mon'];
+var rows = [['Freezer 1','gggggg-'],['Freezer 2','ggggg-g'],['Chiller','ggogg-g'],['Blast chiller','gggg--g'],['Finchley','gggg--r'],['H&amp;S list','gggog-o']];
+var col = { g: '#1f7a4a', o: '#c96f00', r: '#b42318', '-': '#e3e6ee' };
+var hist = [];
+rows.forEach(function (r) {
+hist.push({ text: r[0].replace('&amp;', '&'), label: r[0].replace('&amp;', '&'), style: 'font-size: 12px; color: #3d4556; white-space: nowrap; overflow: hidden; text-overflow: ellipsis' });
+r[1].split('').forEach(function (c, i) {
+hist.push({ text: '', label: days[i] + (c === 'g' ? ' in range' : c === 'o' ? ' missed' : c === 'r' ? ' out of range' : ' closed'), style: 'display: block; height: 18px; border-radius: 3px; background: ' + col[c] });
+});
+});
+return { temps: temps, hs: hs, days: days, hist: hist };
+}
+}
+</script>
+</body>
+</html>

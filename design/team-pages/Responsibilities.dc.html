@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Responsibilities</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;display=swap">
+<style>
+body{margin:0;background:#f6f7fb;font-family:Inter,system-ui,sans-serif;color:#1c2230}
+a{color:#2f6fdb}a:hover{color:#1f55b3}
+.nav{display:block;padding:9px 14px;border-radius:6px;color:#c9cfdc;text-decoration:none;font-size:14px}
+.nav:hover{background:#2b3447;color:#ffffff}
+.nav.on,.nav.on:hover{background:#2f6fdb;color:#ffffff}
+.pill{font-size:12px;padding:3px 9px;border-radius:999px;white-space:nowrap;display:inline-block}
+.card{background:#ffffff;border:1px solid #e3e6ee;border-radius:10px}
+th{text-align:left;font-weight:500;font-size:12px;color:#5b6475;padding:10px 14px;border-bottom:1px solid #e3e6ee;white-space:nowrap;background:#fafbfd}
+td{padding:11px 14px;border-bottom:1px solid #eef0f5;font-size:14px;vertical-align:top}
+</style>
+</helmet>
+<div style="display: flex; flex-wrap: wrap; min-height: 100vh">
+<nav aria-label="Main" style="flex: 0 0 220px; background: #1d2433; padding: 16px 12px; box-sizing: border-box; display: flex; flex-direction: column; gap: 2px">
+<div style="color: #ffffff; font-weight: 600; font-size: 16px; padding: 6px 14px 18px">KoMeals <span style="color: #8fa0bf; font-weight: 400">MRP</span></div>
+<a class="nav" href="#">Home</a>
+<a class="nav" href="#">Inventory</a>
+<a class="nav" href="#">Production</a>
+<a class="nav" href="#">Sales</a>
+<a class="nav" href="#">Purchases</a>
+<a class="nav" href="#">Reports</a>
+<div style="color: #8fa0bf; font-size: 12px; padding: 18px 14px 6px">Team</div>
+<a class="nav" href="Main.dc.html">My day</a>
+<a class="nav" href="Team.dc.html">Team overview</a>
+<a class="nav on" href="Responsibilities.dc.html">Responsibilities</a>
+<a class="nav" href="Checks.dc.html">Daily checks</a>
+</nav>
+<main style="flex: 999 1 560px; min-width: 0; display: flex; flex-direction: column">
+<div style="background: #ffffff; border-bottom: 1px solid #e3e6ee; padding: 12px 28px; display: flex; align-items: center; gap: 12px; flex-wrap: wrap">
+<input type="search" aria-label="Search tasks, orders and items" placeholder="Search tasks, orders and items" style="flex: 1 1 260px; max-width: 420px; height: 36px; border: 1px solid #d5d9e3; border-radius: 6px; padding: 0 12px; font: inherit; font-size: 14px">
+<div style="flex: 1 1 0"></div>
+<button style="height: 36px; padding: 0 14px; border: 0; border-radius: 6px; background: #2f6fdb; color: #ffffff; font: inherit; font-size: 14px; font-weight: 500">+ New duty</button>
+<div aria-label="Joseph Matyas" style="width: 34px; height: 34px; border-radius: 50%; background: #e4ecfb; color: #1f55b3; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 600">JM</div>
+</div>
+<div style="padding: 24px 28px 40px; display: flex; flex-direction: column; gap: 20px">
+<div style="display: flex; align-items: flex-end; gap: 16px; flex-wrap: wrap">
+<div style="flex: 1 1 300px">
+<div style="display: flex; align-items: center; gap: 10px"><h1 style="margin: 0; font-size: 24px; font-weight: 600">Responsibilities</h1><span class="pill" style="background: #fdf0dc; color: #8a4b00">Draft – to agree with the team</span></div>
+<p style="margin: 4px 0 0; color: #5b6475; font-size: 14px">Each duty creates a recurring task for the R person and is checked against the system where possible</p>
+</div>
+<div style="display: flex; gap: 14px; font-size: 13px; color: #5b6475; flex-wrap: wrap">
+<span><b style="color: #1c2230">R</b> does it</span><span><b style="color: #1c2230">A</b> signs off</span><span><b style="color: #1c2230">C</b> consulted</span><span><b style="color: #1c2230">I</b> informed</span>
+</div>
+</div>
+<sc-for list="{{groups}}" as="g" hint-placeholder-count="4">
+<section class="card" aria-label="{{g.name}}" style="overflow: hidden">
+<div style="padding: 14px 18px; border-bottom: 1px solid #e3e6ee; display: flex; align-items: center; gap: 12px; flex-wrap: wrap">
+<div style="width: 32px; height: 32px; border-radius: 50%; background: #e4ecfb; color: #1f55b3; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600">{{g.ini}}</div>
+<div style="flex: 1 1 200px"><h2 style="margin: 0; font-size: 16px; font-weight: 600">{{g.name}}</h2><div style="font-size: 13px; color: #5b6475">{{g.role}}</div></div>
+<span style="font-size: 13px; color: #5b6475">This week: <b style="color: #1c2230">{{g.score}}</b></span>
+</div>
+<div style="overflow-x: auto">
+<table style="width: 100%; border-collapse: collapse; min-width: 900px">
+<thead><tr><th style="width: 26%">Duty</th><th>R</th><th>A</th><th>C / I</th><th>Frequency</th><th>Standard</th><th>Checked in</th><th>This week</th></tr></thead>
+<tbody>
+<sc-for list="{{g.rows}}" as="r" hint-placeholder-count="3">
+<tr>
+<td style="font-weight: 500">{{r.duty}}</td>
+<td>{{r.r}}</td>
+<td>{{r.a}}</td>
+<td style="color: #5b6475">{{r.ci}}</td>
+<td>{{r.freq}}</td>
+<td style="color: #3d4556">{{r.std}}</td>
+<td><span class="pill" style="background: #eef0f5; color: #3d4556">{{r.src}}</span></td>
+<td><span class="pill" style="{{r.wkStyle}}">{{r.wk}}</span></td>
+</tr>
+</sc-for>
+</tbody>
+</table>
+</div>
+</section>
+</sc-for>
+</div>
+</main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1360,"height":1020}}'>
+class Component extends DCLogic {
+renderVals() {
+var G = [
+{ ini: 'MH', name: 'Micky', role: 'Kitchen manager', score: '24 of 26', rows: [
+['Close all MOs for the day','Micky','Joseph','I: Faigy','Daily','By 17:30, actual quantities entered','Katana','4/5'],
+['Freezer and chiller temps (AM and PM)','Micky','Joseph','—','Daily','By 10:00 and 15:00; freezer -18°C or colder, chiller 0–5°C','Daily checks','10/10'],
+['Goods-in check against PO','Micky','Joseph','I: Faigy','Each delivery','Same day; shorts and substitutions noted','Katana','6/6'],
+['Confirm next week’s planner','Micky','Joseph','C: Faigy','Weekly','Thursday 17:00','Tasks','1/1'],
+['Closing H&S checklist','Micky','Joseph','—','Daily','Before leaving','Daily checks','4/5'] ] },
+{ ini: 'FS', name: 'Faigy', role: 'Office admin', score: '15 of 18', rows: [
+['Raise POs requested by Micky','Faigy','Joseph','C: Micky','As needed','Within 24 hours, as requested','Katana','3/4'],
+['Close POs and SOs once delivered','Faigy','Joseph','I: Mirel','Daily','Same day as delivery','Katana','8/10'],
+['Menorah school orders','Faigy','Joseph','I: Micky','Weekly','Confirmed by Thursday','Tasks','1/1'],
+['Labels and Katana / Nutritics data up to date','Faigy','Joseph','C: Micky','Weekly','New items set up before first production','Tasks','3/3'] ] },
+{ ini: 'MK', name: 'Mirel', role: 'Accounts', score: '3 of 3', rows: [
+['Stock difference report after stocktake','Mirel','Joseph','I: Leo','Monthly','By the 5th of the month','Tasks','—'],
+['Supplier payments and Apron top-ups','Mirel','Joseph','I: Micky','Weekly','Paid by due date; top-ups before Monday','Xero','3/3'] ] },
+{ ini: 'JE', name: 'Joana', role: 'Invoicing', score: '9 of 9', rows: [
+['Customer invoices sent','Joana','Joseph','C: Mirel','Per order','Within 2 days of delivery; unusual prices queried first','Xero','9/9'] ] },
+{ ini: 'JM', name: 'Joseph', role: 'Operations', score: '2 of 4', rows: [
+['Weekly 15-minute review per person','Joseph','Leo','I: team','Weekly','Friday before 14:00','Tasks','2/4'],
+['Monthly stocktake signed off','Joseph','Leo','C: Micky, Mirel','Monthly','Counted by the last working day','Katana','—'] ] }
+];
+var groups = G.map(function (g) {
+return { ini: g.ini, name: g.name, role: g.role, score: g.score, rows: g.rows.map(function (r) {
+var parts = r[7].split('/');
+var full = parts.length === 2 && parts[0] === parts[1];
+var none = r[7] === '—';
+return { duty: r[0], r: r[1], a: r[2], ci: r[3], freq: r[4], std: r[5], src: r[6], wk: r[7],
+wkStyle: none ? 'background: #eef0f5; color: #5b6475' : (full ? 'background: #e3f4ea; color: #1f7a4a' : 'background: #fdf0dc; color: #8a4b00') };
+}) };
+});
+return { groups: groups };
+}
+}
+</script>
+</body>
+</html>

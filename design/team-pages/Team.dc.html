@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Team overview</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;display=swap">
+<style>
+body{margin:0;background:#f6f7fb;font-family:Inter,system-ui,sans-serif;color:#1c2230}
+a{color:#2f6fdb}a:hover{color:#1f55b3}
+.nav{display:block;padding:9px 14px;border-radius:6px;color:#c9cfdc;text-decoration:none;font-size:14px}
+.nav:hover{background:#2b3447;color:#ffffff}
+.nav.on,.nav.on:hover{background:#2f6fdb;color:#ffffff}
+.pill{font-size:12px;padding:3px 9px;border-radius:999px;white-space:nowrap;display:inline-block}
+.card{background:#ffffff;border:1px solid #e3e6ee;border-radius:10px}
+th{text-align:left;font-weight:500;font-size:12px;color:#5b6475;padding:10px 14px;border-bottom:1px solid #e3e6ee;white-space:nowrap}
+td{padding:12px 14px;border-bottom:1px solid #eef0f5;font-size:14px;vertical-align:middle}
+</style>
+</helmet>
+<div style="display: flex; flex-wrap: wrap; min-height: 100vh">
+<nav aria-label="Main" style="flex: 0 0 220px; background: #1d2433; padding: 16px 12px; box-sizing: border-box; display: flex; flex-direction: column; gap: 2px">
+<div style="color: #ffffff; font-weight: 600; font-size: 16px; padding: 6px 14px 18px">KoMeals <span style="color: #8fa0bf; font-weight: 400">MRP</span></div>
+<a class="nav" href="#">Home</a>
+<a class="nav" href="#">Inventory</a>
+<a class="nav" href="#">Production</a>
+<a class="nav" href="#">Sales</a>
+<a class="nav" href="#">Purchases</a>
+<a class="nav" href="#">Reports</a>
+<div style="color: #8fa0bf; font-size: 12px; padding: 18px 14px 6px">Team</div>
+<a class="nav" href="Main.dc.html">My day</a>
+<a class="nav on" href="Team.dc.html">Team overview</a>
+<a class="nav" href="Responsibilities.dc.html">Responsibilities</a>
+<a class="nav" href="Checks.dc.html">Daily checks</a>
+</nav>
+<main style="flex: 999 1 560px; min-width: 0; display: flex; flex-direction: column">
+<div style="background: #ffffff; border-bottom: 1px solid #e3e6ee; padding: 12px 28px; display: flex; align-items: center; gap: 12px; flex-wrap: wrap">
+<input type="search" aria-label="Search tasks, orders and items" placeholder="Search tasks, orders and items" style="flex: 1 1 260px; max-width: 420px; height: 36px; border: 1px solid #d5d9e3; border-radius: 6px; padding: 0 12px; font: inherit; font-size: 14px">
+<div style="flex: 1 1 0"></div>
+<button style="height: 36px; padding: 0 14px; border: 0; border-radius: 6px; background: #2f6fdb; color: #ffffff; font: inherit; font-size: 14px; font-weight: 500">+ New task</button>
+<div aria-label="Joseph Matyas" style="width: 34px; height: 34px; border-radius: 50%; background: #e4ecfb; color: #1f55b3; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 600">JM</div>
+</div>
+<div style="padding: 24px 28px 40px; display: flex; flex-direction: column; gap: 20px">
+<div style="display: flex; align-items: flex-end; gap: 16px; flex-wrap: wrap">
+<div style="flex: 1 1 300px">
+<h1 style="margin: 0; font-size: 24px; font-weight: 600">Team overview</h1>
+<p style="margin: 4px 0 0; color: #5b6475; font-size: 14px">{{periodLabel}} · tasks, checks and system matches per person</p>
+</div>
+<div role="group" aria-label="Period" style="display: flex; gap: 6px">
+<sc-for list="{{periods}}" as="p" hint-placeholder-count="3">
+<button onClick="{{p.pick}}" style="{{p.style}}">{{p.label}}</button>
+</sc-for>
+</div>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px">
+<div class="card" style="padding: 14px 16px"><div style="font-size: 13px; color: #5b6475">Done</div><div style="font-size: 26px; font-weight: 600; margin-top: 4px; color: #1f7a4a">{{k.done}}</div></div>
+<div class="card" style="padding: 14px 16px"><div style="font-size: 13px; color: #5b6475">Not done</div><div style="font-size: 26px; font-weight: 600; margin-top: 4px">{{k.open}}</div></div>
+<div class="card" style="padding: 14px 16px"><div style="font-size: 13px; color: #5b6475">Overdue</div><div style="font-size: 26px; font-weight: 600; margin-top: 4px; color: #b42318">{{k.overdue}}</div></div>
+<div class="card" style="padding: 14px 16px"><div style="font-size: 13px; color: #5b6475">Snoozed emails</div><div style="font-size: 26px; font-weight: 600; margin-top: 4px">{{k.snoozed}}</div></div>
+<div class="card" style="padding: 14px 16px"><div style="font-size: 13px; color: #5b6475">Checks completed</div><div style="font-size: 26px; font-weight: 600; margin-top: 4px">{{k.checks}}</div></div>
+</div>
+<section class="card" aria-label="By person" style="overflow: hidden">
+<div style="padding: 14px 18px; border-bottom: 1px solid #e3e6ee"><h2 style="margin: 0; font-size: 16px; font-weight: 600">By person</h2></div>
+<div style="overflow-x: auto">
+<table style="width: 100%; border-collapse: collapse; min-width: 760px">
+<thead><tr><th>Person</th><th>Done</th><th>Not done</th><th>Overdue</th><th style="width: 34%">On time</th><th>Checks</th><th>System match</th></tr></thead>
+<tbody>
+<sc-for list="{{rows}}" as="r" hint-placeholder-count="4">
+<tr>
+<td><div style="display: flex; align-items: center; gap: 10px"><div style="width: 30px; height: 30px; border-radius: 50%; background: #e4ecfb; color: #1f55b3; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600">{{r.ini}}</div><div><div style="font-weight: 500">{{r.name}}</div><div style="font-size: 12px; color: #5b6475">{{r.role}}</div></div></div></td>
+<td>{{r.done}}</td>
+<td>{{r.open}}</td>
+<td style="color: #b42318">{{r.overdue}}</td>
+<td><div style="display: flex; align-items: center; gap: 10px"><div style="flex: 1 1 0; height: 8px; background: #eef0f5; border-radius: 4px"><div style="{{r.bar}}"></div></div><span style="font-size: 13px; color: #3d4556; min-width: 36px">{{r.pct}}%</span></div></td>
+<td>{{r.checks}}</td>
+<td><span class="pill" style="{{r.matchStyle}}">{{r.match}}</span></td>
+</tr>
+</sc-for>
+</tbody>
+</table>
+</div>
+</section>
+<section class="card" aria-label="Needs attention" style="padding: 16px 18px">
+<h2 style="margin: 0 0 12px; font-size: 16px; font-weight: 600">Needs attention</h2>
+<div style="display: flex; flex-direction: column; gap: 12px; font-size: 14px">
+<div style="display: flex; gap: 12px; align-items: flex-start; flex-wrap: wrap"><span class="pill" style="background: #fde8e7; color: #b42318">Mismatch</span><div style="flex: 1 1 300px">Micky marked "Close all MOs" done yesterday – MO-1243 still open in Katana</div></div>
+<div style="display: flex; gap: 12px; align-items: flex-start; flex-wrap: wrap"><span class="pill" style="background: #fde8e7; color: #b42318">Overdue</span><div style="flex: 1 1 300px">Faigy – close PO-01025 after delivery (due Thu)</div></div>
+<div style="display: flex; gap: 12px; align-items: flex-start; flex-wrap: wrap"><span class="pill" style="background: #fdf0dc; color: #8a4b00">Waiting 4 days</span><div style="flex: 1 1 300px">Stock adjustment – Finchley cold room · waiting on Micky</div></div>
+<div style="display: flex; gap: 12px; align-items: flex-start; flex-wrap: wrap"><span class="pill" style="background: #fdf0dc; color: #8a4b00">Check missed</span><div style="flex: 1 1 300px">Freezer temps PM not logged on Thursday</div></div>
+</div>
+</section>
+</div>
+</main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1360,"height":1020}}'>
+class Component extends DCLogic {
+constructor(props) { super(props); this.state = { p: 'w' }; }
+renderVals() {
+var D = {
+y: { label: 'Yesterday', k: { done: 9, open: 4, overdue: 2, snoozed: 4, checks: '11/12' },
+rows: [['JM','Joseph','Operations',3,1,0,'—','OK'],['MH','Micky','Kitchen manager',3,1,1,'6/6','1 mismatch'],['FS','Faigy','Office admin',2,2,1,'—','OK'],['MK','Mirel','Accounts',1,0,0,'—','OK']] },
+w: { label: 'Last 7 days', k: { done: 58, open: 17, overdue: 6, snoozed: 4, checks: '66/70' },
+rows: [['JM','Joseph','Operations',19,5,1,'—','OK'],['MH','Micky','Kitchen manager',17,4,3,'34/36','2 mismatches'],['FS','Faigy','Office admin',14,6,2,'—','1 mismatch'],['MK','Mirel','Accounts',8,2,0,'—','OK']] },
+m: { label: 'Last 30 days', k: { done: 231, open: 42, overdue: 15, snoozed: 4, checks: '281/290' },
+rows: [['JM','Joseph','Operations',74,12,3,'—','OK'],['MH','Micky','Kitchen manager',68,10,6,'140/146','5 mismatches'],['FS','Faigy','Office admin',55,14,5,'—','3 mismatches'],['MK','Mirel','Accounts',34,6,1,'—','OK']] }
+};
+var cur = D[this.state.p];
+var self = this;
+var periods = [['y','Yesterday'],['w','7 days'],['m','30 days']].map(function (x) {
+var on = self.state.p === x[0];
+return { label: x[1], pick: function () { self.setState({ p: x[0] }); },
+style: 'height: 32px; padding: 0 12px; border-radius: 6px; font: inherit; font-size: 13px; border: 1px solid ' + (on ? '#2f6fdb; background: #e4ecfb; color: #1f55b3' : '#d5d9e3; background: #ffffff; color: #1c2230') };
+});
+var rows = cur.rows.map(function (r) {
+var total = r[3] + r[4] + r[5];
+var pct = Math.round(r[3] / total * 100);
+var ok = r[7] === 'OK';
+return { ini: r[0], name: r[1], role: r[2], done: r[3], open: r[4], overdue: r[5], checks: r[6], pct: pct,
+bar: 'width: ' + pct + '%; height: 8px; border-radius: 4px; background: ' + (pct >= 75 ? '#1f7a4a' : '#c96f00'),
+match: r[7], matchStyle: ok ? 'background: #e3f4ea; color: #1f7a4a' : 'background: #fde8e7; color: #b42318' };
+});
+return { periods: periods, rows: rows, k: cur.k, periodLabel: cur.label };
+}
+}
+</script>
+</body>
+</html>
