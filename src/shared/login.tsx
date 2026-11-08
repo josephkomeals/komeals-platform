@@ -5,7 +5,7 @@ import { Doc } from './layout';
 import { audit, checkLogin, endSession, hashPin, isValidPin, startSession } from './auth';
 import type { AppEnv } from './types';
 
-const box = 'max-width:360px;margin:12vh auto 0;padding:28px';
+const box = 'max-width:460px;margin:10vh auto 0;padding:28px';
 
 function LoginPage(props: { names: string[]; error?: string; name?: string }) {
   return (
@@ -14,24 +14,22 @@ function LoginPage(props: { names: string[]; error?: string; name?: string }) {
         <h1 style="font-size:20px">
           KoMeals <span class="muted" style="font-weight:400">Platform</span>
         </h1>
-        <p class="sub" style="margin-bottom:20px">Pick your name and enter your PIN.</p>
+        <p class="sub" style="margin-bottom:20px">Tap your name, then enter your PIN.</p>
         {props.error && (
           <p class="msg" role="alert">
             {props.error}
           </p>
         )}
         <form method="post" action="/login" style="display:flex;flex-direction:column;gap:14px">
-          <label>
-            Name
-            <select name="name" required>
-              <option value="">Choose…</option>
-              {props.names.map((n) => (
-                <option value={n} selected={n === props.name}>
-                  {n}
-                </option>
-              ))}
-            </select>
-          </label>
+          <fieldset class="names">
+            <legend>Who are you?</legend>
+            {props.names.map((n) => (
+              <label class="name-tile">
+                <input type="radio" name="name" value={n} required checked={n === props.name} />
+                <span>{n}</span>
+              </label>
+            ))}
+          </fieldset>
           <label>
             PIN
             <input
