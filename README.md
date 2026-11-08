@@ -44,12 +44,13 @@ Add everyone else under **Settings → Users**.
 Databases (created 8 Nov 2026): `komeals-platform-live` and `komeals-platform-test`, IDs in `wrangler.jsonc`.
 
 Two Workers, both built from this repo (Workers & Pages → Create → Import a repository).
-`wrangler.jsonc` top level is **test**; `--env live` is live. Build command: leave empty.
+`wrangler.jsonc` top level is **test**, the `previews` block is used for branch previews (also
+the test database), and `--env live` is live.
 
-| Worker | Deploy command (main) | Non-production branches |
+| Worker | Build command | Deploy / preview command |
 | --- | --- | --- |
-| `komeals-platform-test` | `npx wrangler d1 migrations apply DB --remote && npx wrangler deploy` | On: `npx wrangler d1 migrations apply DB --remote && npx wrangler versions upload` |
-| `komeals-platform` (live) | `npx wrangler d1 migrations apply DB --remote --env live && npx wrangler deploy --env live` | Off |
+| `komeals-platform-test` | `npx wrangler d1 migrations apply DB --remote` | main: `npx wrangler deploy`; branches: `npx wrangler preview` |
+| `komeals-platform` (live, later) | `npx wrangler d1 migrations apply DB --remote --env live` | `npx wrangler deploy --env live` (main only) |
 
 Every branch gets its own preview URL on the test database; merging to `main` updates the
 test site and live.
