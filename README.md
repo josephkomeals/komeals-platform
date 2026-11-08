@@ -43,15 +43,16 @@ Add everyone else under **Settings → Users**.
 
 Databases (created 8 Nov 2026): `komeals-platform-live` and `komeals-platform-test`, IDs in `wrangler.jsonc`.
 
-Two Workers, both built from this repo (Workers & Pages → Create → Import a repository):
+Two Workers, both built from this repo (Workers & Pages → Create → Import a repository).
+`wrangler.jsonc` top level is **test**; `--env live` is live. Build command: leave empty.
 
-| Worker | Production branch | Deploy command | Non-production branches |
-| --- | --- | --- | --- |
-| `komeals-platform-test` | `main` | `npx wrangler d1 migrations apply DB --remote --env test && npx wrangler deploy --env test` | On, same command |
-| `komeals-platform` (live) | `main` | `npx wrangler d1 migrations apply DB --remote && npx wrangler deploy` | Off |
+| Worker | Deploy command (main) | Non-production branches |
+| --- | --- | --- |
+| `komeals-platform-test` | `npx wrangler d1 migrations apply DB --remote && npx wrangler deploy` | On: `npx wrangler d1 migrations apply DB --remote && npx wrangler versions upload` |
+| `komeals-platform` (live) | `npx wrangler d1 migrations apply DB --remote --env live && npx wrangler deploy --env live` | Off |
 
-So every push to any branch updates the test site (test database), and merging to `main`
-updates live. Build command: leave empty.
+Every branch gets its own preview URL on the test database; merging to `main` updates the
+test site and live.
 
 ## Google sign-in setup (one time)
 
@@ -61,10 +62,10 @@ updates live. Build command: leave empty.
    (OAuth consent screen: User type **Internal**, so only @komeals.com accounts can use it.)
 2. Store the two values as Worker secrets, for live and for test:
    ```sh
-   npx wrangler secret put GOOGLE_CLIENT_ID
-   npx wrangler secret put GOOGLE_CLIENT_SECRET
-   npx wrangler secret put GOOGLE_CLIENT_ID --env test
-   npx wrangler secret put GOOGLE_CLIENT_SECRET --env test
+   npx wrangler secret put GOOGLE_CLIENT_ID              # test
+   npx wrangler secret put GOOGLE_CLIENT_SECRET          # test
+   npx wrangler secret put GOOGLE_CLIENT_ID --env live
+   npx wrangler secret put GOOGLE_CLIENT_SECRET --env live
    ```
 Until both secrets are set, the name + PIN screen works on any device, so the first admin can log in.
 

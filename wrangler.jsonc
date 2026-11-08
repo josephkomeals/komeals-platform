@@ -1,29 +1,30 @@
 // KoMeals Platform – one Worker for all modules.
-// Top level = LIVE (deployed from main). "env.test" = TEST (previews / branches).
+// Top level = TEST (Worker "komeals-platform-test", test database). Branch builds and previews use this.
+// "env.live" = LIVE (Worker "komeals-platform", live database). Only deployed from main.
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "komeals-platform",
+  "name": "komeals-platform-test",
   "main": "src/index.tsx",
   "compatibility_date": "2026-10-20",
   "observability": { "enabled": true },
-  "vars": { "APP_ENV": "live", "ALLOWED_EMAIL_DOMAIN": "komeals.com" },
+  "vars": { "APP_ENV": "test", "ALLOWED_EMAIL_DOMAIN": "komeals.com" },
   "d1_databases": [
     {
       "binding": "DB",
-      "database_name": "komeals-platform-live",
-      "database_id": "13dc98f0-72a9-4fe1-af08-a17542e4a2fb",
+      "database_name": "komeals-platform-test",
+      "database_id": "f6e00361-ee11-40f1-b9a3-cb9f3ba7028d",
       "migrations_dir": "migrations"
     }
   ],
   "env": {
-    "test": {
-      "name": "komeals-platform-test",
-      "vars": { "APP_ENV": "test", "ALLOWED_EMAIL_DOMAIN": "komeals.com" },
+    "live": {
+      "name": "komeals-platform",
+      "vars": { "APP_ENV": "live", "ALLOWED_EMAIL_DOMAIN": "komeals.com" },
       "d1_databases": [
         {
           "binding": "DB",
-          "database_name": "komeals-platform-test",
-          "database_id": "f6e00361-ee11-40f1-b9a3-cb9f3ba7028d",
+          "database_name": "komeals-platform-live",
+          "database_id": "13dc98f0-72a9-4fe1-af08-a17542e4a2fb",
           "migrations_dir": "migrations"
         }
       ]
