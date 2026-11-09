@@ -1,0 +1,22 @@
+{
+  "name": "komeals-platform",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "db:migrate:local": "wrangler d1 migrations apply DB --local",
+    "db:migrate:test": "wrangler d1 migrations apply DB --remote",
+    "db:migrate:live": "wrangler d1 migrations apply DB --remote --env live",
+    "typecheck": "tsc --noEmit",
+    "deploy:test": "wrangler deploy",
+    "deploy:live": "wrangler deploy --env live"
+  },
+  "dependencies": {
+    "hono": "4.13.17"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "5.20261104.1",
+    "typescript": "5.9.3",
+    "wrangler": "4.158.0"
+  }
+}
