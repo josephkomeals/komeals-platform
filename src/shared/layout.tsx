@@ -23,6 +23,14 @@ main{flex:1 1 auto;min-width:0;display:flex;flex-direction:column}
 .top{background:#fff;border-bottom:1px solid var(--line);padding:12px 28px;display:flex;align-items:center;gap:12px}
 .top .grow{flex:1}
 .env{font-size:12px;padding:3px 9px;border-radius:999px;background:var(--orange-soft);color:var(--orange)}
+.bell{text-decoration:none;color:var(--muted);font-size:13px;display:inline-flex;align-items:center;gap:6px}
+.bell .count{background:var(--red);color:#fff;border-radius:999px;font-size:11px;padding:1px 7px;font-weight:600}
+.tabs{display:flex;gap:4px;border-bottom:1px solid var(--line)}
+.tabs a,.tabs span{padding:9px 14px;text-decoration:none;color:var(--muted);border-bottom:2px solid transparent;margin-bottom:-1px}
+.tabs a.on{color:var(--blue-dark);border-color:var(--blue);font-weight:500}.tabs span{color:#9aa3b5}
+textarea{border:1px solid var(--field);border-radius:6px;padding:8px 12px;font:inherit;background:#fff;min-height:64px}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:20px;align-items:start}
+dl.facts{display:grid;grid-template-columns:max-content 1fr;gap:8px 18px;margin:0}dl.facts dt{color:var(--muted)}dl.facts dd{margin:0}
 .avatar{width:34px;height:34px;border-radius:50%;background:var(--blue-soft);color:var(--blue-dark);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600}
 .page{padding:24px 28px 40px;display:flex;flex-direction:column;gap:20px}
 h1{margin:0;font-size:24px;font-weight:600}h2{margin:0;font-size:16px;font-weight:600}
@@ -88,10 +96,10 @@ const MAIN: NavItem[] = [
   { href: '/reports', label: 'Reports', soon: true },
 ];
 const TEAM: NavItem[] = [
-  { href: '/team/my-day', label: 'My day', soon: true },
+  { href: '/team/my-day', label: 'My day' },
   { href: '/team/overview', label: 'Team overview', soon: true },
   { href: '/team/responsibilities', label: 'Responsibilities', soon: true },
-  { href: '/team/checks', label: 'Daily checks', soon: true },
+  { href: '/team/checks', label: 'Daily checks' },
 ];
 const SETTINGS: NavItem[] = [
   { href: '/settings/users', label: 'Users', adminOnly: true },
@@ -109,7 +117,7 @@ function Nav(props: { items: NavItem[]; path: string; user: User }) {
               {i.label} <small>soon</small>
             </span>
           ) : (
-            <a class={`nav${props.path === i.href ? ' on' : ''}`} href={i.href}>
+            <a class={`nav${props.path === i.href || (i.href !== '/' && props.path.startsWith(i.href + '/')) ? ' on' : ''}`} href={i.href}>
               {i.label}
             </a>
           ),
@@ -126,7 +134,7 @@ const initials = (name: string) =>
     .slice(0, 2)
     .toUpperCase();
 
-export function Shell(props: { title: string; path: string; user: User; env: string; children: Child }) {
+export function Shell(props: { title: string; path: string; user: User; env: string; unread?: number; children: Child }) {
   return (
     <Doc title={props.title}>
       <div class="app">
@@ -144,6 +152,9 @@ export function Shell(props: { title: string; path: string; user: User; env: str
           <div class="top">
             <div class="grow" />
             {props.env !== 'live' && <span class="env">Test database</span>}
+            <a class="bell" href="/team/my-day#notifications" title="Notifications">
+              Notifications{props.unread ? <span class="count">{props.unread}</span> : null}
+            </a>
             <span class="muted">{props.user.name}</span>
             <div class="avatar" aria-hidden="true">
               {initials(props.user.name)}

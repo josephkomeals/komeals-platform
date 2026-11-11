@@ -7,6 +7,8 @@
   "main": "src/index.tsx",
   "compatibility_date": "2026-10-20",
   "observability": { "enabled": true },
+  // 06:00 UTC daily: tests coming due become tasks.
+  "triggers": { "crons": ["0 6 * * *"] },
   "vars": { "APP_ENV": "test", "ALLOWED_EMAIL_DOMAIN": "komeals.com" },
   "d1_databases": [
     {
@@ -31,6 +33,7 @@
   "env": {
     "live": {
       "name": "komeals-platform",
+      "triggers": { "crons": ["0 6 * * *"] },
       "vars": { "APP_ENV": "live", "ALLOWED_EMAIL_DOMAIN": "komeals.com" },
       "d1_databases": [
         {
