@@ -25,6 +25,13 @@ app.use('*', async (c, next) => {
 app.use('*', sameOrigin);
 app.use('*', loadUser);
 
+// On the test site, show what went wrong instead of a bare "Internal Server Error".
+app.onError((err, c) => {
+  console.error(err);
+  const detail = c.env.APP_ENV === 'live' ? '' : `\n\nDetail (test site only): ${err.message}`;
+  return c.text(`Something went wrong. Please tell Joseph what you were doing.${detail}`, 500);
+});
+
 app.get('/health', (c) => c.json({ ok: true, env: c.env.APP_ENV }));
 
 app.route('/', loginRoutes);
