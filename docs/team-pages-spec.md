@@ -65,6 +65,23 @@ Who: every user sees their own; managers can switch person.
   the original, never edits.
 - Check schedules create items in each person's My day ("Checks today").
 
+### 4a. Periodic tests: equipment and micro testing (added 11 Nov 2026)
+
+The Daily checks page has tabs: **Temperatures · Equipment · Micro testing**.
+
+- **Equipment**: each item has one or more tests, each with how often
+  (every N days / weeks / months / years), the desired result (a reading with
+  min / max, or pass / fail), who does it, and the **I/C** (person in charge).
+- **Micro testing**: one row per product for sale (copied from Katana until the
+  MRP has its own products), last tested, result, next due, full history, lab
+  reference and report PDF.
+- Next due = last test date + interval. Never tested = due now. A fail means retest.
+- A test inside its reminder window (default 7 days) puts a "Test due" task in
+  the tester's list (daily cron, 06:00 UTC). Recording the result closes it.
+- A fail requires a note, creates a high-priority "Corrective action and retest"
+  task, and notifies the I/C (in the app; email next). No I/C = all admins.
+- Results lock once saved; corrections are new rows pointing at the original.
+
 ---
 
 ## Data model (first draft)
@@ -83,6 +100,11 @@ Who: every user sees their own; managers can switch person.
 - `CheckReading` – unit, value, taken_at, user, in_range, note, locked.
 - `ChecklistItem` / `ChecklistEntry` – item, frequency, done_at, user, locked.
 - `CorrectiveAction` – reading or entry, action taken, by, opened_at, closed_at.
+- `TestSubject` – equipment or product (name, code, location, katana_id).
+- `TestPlan` – subject, test name, every_n + every_unit, result type, min/max/unit,
+  desired, responsible, I/C, remind_days, active.
+- `TestResult` – plan, tested_on, value, passed, note, lab, report, corrects_id, locked.
+- `Notification` – user, title, body, link, read_at.
 - `AuditLog` – shared foundation table (who, what, when, before/after).
 
 ## Integrations

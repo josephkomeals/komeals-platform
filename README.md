@@ -52,7 +52,8 @@ the test database), and `--env live` is live.
 | `komeals-platform-test` | `npx wrangler d1 migrations apply DB --remote` | main: `npx wrangler deploy`; branches: `npx wrangler preview` |
 | `komeals-platform` (live, later) | `npx wrangler d1 migrations apply DB --remote --env live` | `npx wrangler deploy --env live` (main only) |
 
-Every branch gets its own preview URL on the test database; merging to `main` updates the
+The build command runs for every branch (the deploy command only for `main`), so new tables reach the
+test database as soon as a branch preview builds. Every branch gets its own preview URL on the test database; merging to `main` updates the
 test site and live.
 
 ## Google sign-in setup (one time)

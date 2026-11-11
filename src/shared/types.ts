@@ -13,7 +13,7 @@ export type AppEnv = {
     GOOGLE_CLIENT_ID?: string;
     GOOGLE_CLIENT_SECRET?: string;
   };
-  Variables: { user?: User };
+  Variables: { user?: User; unread?: number };
 };
 
 export type AppContext = Context<AppEnv>;
